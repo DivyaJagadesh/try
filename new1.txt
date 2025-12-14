@@ -1,0 +1,443 @@
+PURPOSE
+
+• Quickly identify graph / traversal / DP problems
+• Convert problem statement → DSA concept → approach
+• Explain logic clearly during interviews
+
+GRAPHS – BASICS
+
+Graph = Nodes (vertices) + Edges
+
+Types:
+• Undirected graph
+• Directed graph
+• Weighted graph
+• Unweighted graph
+
+Representations:
+
+Adjacency List → preferred (less space)
+
+Adjacency Matrix → simple but high space
+
+HOW TO IDENTIFY A GRAPH PROBLEM
+
+Keywords:
+• Connected
+• Path
+• Reachable
+• Neighbours
+• Islands
+• Networks
+• Dependencies
+• Roads / Flights / Links
+
+If input looks like:
+• 2D grid → graph (cells as nodes)
+• Pairs (u, v) → graph edges
+
+BFS (BREADTH FIRST SEARCH)
+
+Traversal level by level
+
+Used when:
+• Shortest path in UNWEIGHTED graph
+• Minimum steps / distance
+• Nearest element
+• Level order traversal
+
+Examples:
+• Number of Islands
+• Shortest path in matrix
+• Rotten oranges
+• Minimum moves
+
+Data structure:
+Queue
+
+Basic Logic:
+
+Push starting node into queue
+
+Mark as visited
+
+While queue not empty:
+
+pop node
+
+visit neighbours
+
+push unvisited neighbours
+
+Time Complexity:
+O(V + E)
+
+WHEN TO USE BFS
+
+• Find shortest path
+• Distance problems
+• Level-wise processing
+• Multi-source problems
+
+DFS (DEPTH FIRST SEARCH)
+
+Traversal depth-wise
+
+Used when:
+• Explore all paths
+• Connected components
+• Cycle detection
+• Backtracking style problems
+
+Examples:
+• Number of Islands
+• Detect cycle
+• Flood fill
+• Graph connectivity
+
+Data structure:
+• Recursion (call stack)
+• Stack (iterative)
+
+Basic Logic:
+
+Visit node
+
+Mark visited
+
+Recursively visit neighbours
+
+Time Complexity:
+O(V + E)
+
+WHEN TO USE DFS
+
+• Need full exploration
+• Counting components
+• Checking cycles
+• Path existence
+
+BFS vs DFS (INTERVIEW FAVOURITE)
+
+BFS:
+• Shortest path
+• Uses queue
+• More memory
+
+DFS:
+• Deep exploration
+• Uses stack/recursion
+• Less memory
+
+2D GRID AS GRAPH (VERY IMPORTANT)
+
+Each cell = node
+Up, Down, Left, Right = edges
+
+Common problems:
+• Number of Islands
+• Flood Fill
+• Matrix traversal
+• Surrounded regions
+
+Trick:
+Always check:
+• Bounds
+• Visited
+• Valid cell (0/1)
+
+DYNAMIC PROGRAMMING (DP)
+
+DP = Optimization of recursion by storing results
+
+Used when:
+• Overlapping subproblems
+• Optimal solution required
+
+Key words:
+• Maximum / Minimum
+• Count number of ways
+• Best possible
+• Optimal
+
+HOW TO IDENTIFY DP PROBLEMS
+
+Ask:
+
+Can I break this into subproblems?
+
+Do subproblems repeat?
+
+Is result dependent on previous states?
+
+If YES → DP
+
+DP APPROACH (GOLDEN STEPS)
+
+Define state
+dp[i] → answer till index i
+
+Transition
+dp[i] = dp[i-1] + dp[i-2]
+
+Base case
+dp[0], dp[1]
+
+Final answer
+dp[n]
+
+TYPES OF DP
+
+1D DP
+• Fibonacci
+• Climbing stairs
+• House robber
+
+2D DP
+• Grid paths
+• LCS
+• Knapsack
+
+COMMON DP PROBLEMS & PATTERNS
+Problem → DP Concept
+
+Climbing Stairs → Fibonacci DP
+House Robber → Pick / Not pick
+Unique Paths → Grid DP
+Longest Common Subsequence → String DP
+0/1 Knapsack → Choice DP
+Subset Sum → Boolean DP
+Coin Change → Count DP
+
+MEMOIZATION vs TABULATION
+
+Memoization:
+• Top-down
+• Recursion + cache
+• Easier to write
+
+Tabulation:
+• Bottom-up
+• Iterative
+• Faster, no recursion
+
+GRAPH + DP COMBO
+
+Some problems use both:
+• DAG longest path
+• DP on trees
+• DP on grids
+
+HOW TO EXPLAIN IN INTERVIEW
+
+Say:
+"This is a graph traversal problem. Since we need shortest distance, I use BFS."
+
+or
+
+"This problem has overlapping subproblems, so DP is suitable."
+
+COMMON MISTAKES
+
+• Forgetting visited array
+• Infinite recursion
+• Wrong base case in DP
+• Using DFS when BFS needed
+
+EDGE CASES
+
+• Empty graph
+• Single node
+• Disconnected components
+• Grid boundaries
+
+FINAL KLA HACKATHON TIPS
+
+• Recognize pattern quickly
+• Explain approach clearly
+• Use simple variables
+• Focus on correctness first
+
+
+============================================
+
+1️⃣ GRAPH – ADJACENCY LIST (BASE TEMPLATE)
+# Graph representation using adjacency list
+# graph[u] = list of neighbours of u
+
+graph = {
+    0: [1, 2],
+    1: [0, 3],
+    2: [0],
+    3: [1]
+}
+
+
+Or dynamic build:
+
+graph = {}
+
+def add_edge(u, v):
+    if u not in graph:
+        graph[u] = []
+    if v not in graph:
+        graph[v] = []
+
+    graph[u].append(v)
+    graph[v].append(u)   # remove for directed graph
+
+2️⃣ BFS – BREADTH FIRST SEARCH (QUEUE)
+from collections import deque
+
+def bfs(start):
+    visited = set()
+    queue = deque()
+
+    queue.append(start)
+    visited.add(start)
+
+    while queue:
+        node = queue.popleft()
+        print(node, end=" ")
+
+        for neigh in graph[node]:
+            if neigh not in visited:
+                visited.add(neigh)
+                queue.append(neigh)
+
+
+🔑 Used for:
+• Shortest path
+• Level-wise traversal
+
+3️⃣ DFS – DEPTH FIRST SEARCH (RECURSION)
+def dfs(node, visited):
+    visited.add(node)
+    print(node, end=" ")
+
+    for neigh in graph[node]:
+        if neigh not in visited:
+            dfs(neigh, visited)
+
+# call
+visited = set()
+dfs(0, visited)
+
+
+🔑 Used for:
+• Full exploration
+• Connected components
+• Cycle detection
+
+4️⃣ DFS – ITERATIVE (STACK)
+def dfs_iterative(start):
+    visited = set()
+    stack = [start]
+
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            print(node, end=" ")
+
+            for neigh in graph[node]:
+                if neigh not in visited:
+                    stack.append(neigh)
+
+5️⃣ BFS ON GRID (2D MATRIX)
+from collections import deque
+
+def bfs_grid(grid, sr, sc):
+    rows, cols = len(grid), len(grid[0])
+    visited = [[False]*cols for _ in range(rows)]
+    queue = deque()
+
+    queue.append((sr, sc))
+    visited[sr][sc] = True
+
+    directions = [(1,0), (-1,0), (0,1), (0,-1)]
+
+    while queue:
+        r, c = queue.popleft()
+
+        for dr, dc in directions:
+            nr, nc = r+dr, c+dc
+            if 0 <= nr < rows and 0 <= nc < cols:
+                if not visited[nr][nc] and grid[nr][nc] == 1:
+                    visited[nr][nc] = True
+                    queue.append((nr, nc))
+
+
+🔑 Used for:
+• Number of Islands
+• Flood Fill
+• Shortest path in matrix
+
+6️⃣ DFS ON GRID
+def dfs_grid(grid, r, c, visited):
+    rows, cols = len(grid), len(grid[0])
+
+    if r < 0 or c < 0 or r >= rows or c >= cols:
+        return
+    if visited[r][c] or grid[r][c] == 0:
+        return
+
+    visited[r][c] = True
+
+    dfs_grid(grid, r+1, c, visited)
+    dfs_grid(grid, r-1, c, visited)
+    dfs_grid(grid, r, c+1, visited)
+    dfs_grid(grid, r, c-1, visited)
+
+7️⃣ DP – FIBONACCI (1D DP)
+def fib(n):
+    if n <= 1:
+        return n
+
+    dp = [0]*(n+1)
+    dp[0] = 0
+    dp[1] = 1
+
+    for i in range(2, n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+
+    return dp[n]
+
+8️⃣ DP – CLIMBING STAIRS
+def climbStairs(n):
+    if n <= 2:
+        return n
+
+    dp = [0]*(n+1)
+    dp[1] = 1
+    dp[2] = 2
+
+    for i in range(3, n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+
+    return dp[n]
+
+9️⃣ DP – UNIQUE PATHS (2D DP)
+def uniquePaths(m, n):
+    dp = [[1]*n for _ in range(m)]
+
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+
+    return dp[m-1][n-1]
+
+🔟 DP – LONGEST COMMON SUBSEQUENCE (LCS)
+def lcs(s1, s2):
+    m, n = len(s1), len(s2)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = 1 + dp[i-1][j-1]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+
+    return dp[m][n]
+
