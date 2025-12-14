@@ -1,0 +1,80 @@
+GIT MILESTONE WORKFLOW (BEGINNER FRIENDLY)
+
+Use these steps EVERY TIME you complete a new milestone or add new code.
+
+
+STEP 0: GO TO PROJECT FOLDER
+----------------------------
+cd Desktop/learn_git
+
+Why:
+Git commands work only inside the project folder.
+
+
+STEP 1: CHECK STATUS
+--------------------
+git status
+
+Why:
+Shows new files and modified files.
+Helps you confirm what will be committed.
+
+
+STEP 2: ADD FILES (STAGING)
+---------------------------
+Add all files:
+git add .
+
+Add a specific file:
+git add milestone2.py
+
+Why:
+Selects which files should be included in the commit.
+
+
+STEP 3: COMMIT WITH MESSAGE
+---------------------------
+git commit -m "Milestone 2: added new feature"
+
+Why:
+Saves a snapshot of your work.
+Commit message explains WHAT you did.
+
+
+GOOD COMMIT MESSAGE EXAMPLES
+----------------------------
+Milestone 1: initial project setup
+Milestone 2: implemented login logic
+Bug fix: corrected input validation
+UI update: improved dashboard layout
+
+
+STEP 4: PUSH TO GITHUB
+----------------------
+git push
+
+Why:
+Uploads your committed changes to GitHub.
+
+
+ONE-LINE DAILY FLOW
+-------------------
+git status
+git add .
+git commit -m "Milestone X: short description"
+git push
+
+
+IMPORTANT RULES
+---------------
+1. Commit after every milestone
+2. Push regularly (don’t wait for many days)
+3. Always write meaningful commit messages
+4. Never push without committing
+
+
+INTERVIEW EXPLANATION (SIMPLE)
+------------------------------
+For every milestone, I check the status, stage the required files,
+commit them with a meaningful message, and push the changes to GitHub
+to maintain proper version history.
