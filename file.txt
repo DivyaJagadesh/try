@@ -1,0 +1,134 @@
+FILE HANDLING (TXT, CSV, JSON) – CHEAT SHEET (PYTHON)
+
+=====================================================
+
+1️⃣ TXT FILE – READ, PROCESS, WRITE
+📌 READ TXT FILE
+# Read entire file
+with open("input.txt", "r") as f:
+    data = f.read()
+
+print(data)
+
+# Read line by line
+with open("input.txt", "r") as f:
+    for line in f:
+        print(line.strip())
+
+📌 PROCESS TXT DATA (Example)
+
+Count number of words:
+
+with open("input.txt", "r") as f:
+    text = f.read()
+
+words = text.split()
+word_count = len(words)
+
+📌 WRITE OUTPUT TO TXT
+with open("output.txt", "w") as f:
+    f.write("Word Count: " + str(word_count))
+
+
+Append mode:
+
+with open("output.txt", "a") as f:
+    f.write("\nProcessed successfully")
+
+2️⃣ CSV FILE – READ, PROCESS, WRITE
+📌 READ CSV FILE
+import csv
+
+with open("data.csv", "r") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)
+
+
+Read with header:
+
+with open("data.csv", "r") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row["name"], row["marks"])
+
+📌 PROCESS CSV DATA (Example)
+
+Find average marks:
+
+import csv
+
+total = 0
+count = 0
+
+with open("data.csv", "r") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        total += int(row["marks"])
+        count += 1
+
+average = total / count
+
+📌 WRITE CSV OUTPUT
+import csv
+
+with open("output.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Average Marks"])
+    writer.writerow([average])
+
+
+Write multiple rows:
+
+with open("output.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Name", "Marks"])
+    writer.writerows([
+        ["Divya", 85],
+        ["Karthic", 90]
+    ])
+
+3️⃣ JSON FILE – READ, PROCESS, WRITE
+📌 READ JSON FILE
+import json
+
+with open("data.json", "r") as f:
+    data = json.load(f)
+
+print(data)
+
+
+Access values:
+
+print(data["name"])
+print(data["marks"])
+
+📌 PROCESS JSON DATA (Example)
+
+Filter students with marks > 80:
+
+result = []
+
+for student in data["students"]:
+    if student["marks"] > 80:
+        result.append(student)
+
+📌 WRITE JSON OUTPUT
+import json
+
+with open("output.json", "w") as f:
+    json.dump(result, f, indent=4)
+
+4️⃣ COMBINED EXAMPLE (CSV → JSON)
+import csv
+import json
+
+students = []
+
+with open("data.csv", "r") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        students.append(row)
+
+with open("students.json", "w") as f:
+    json.dump(students, f, indent=4)
